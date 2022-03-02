@@ -1,4 +1,4 @@
-const checks = {
+const validators = {
 	defined: {
 		handler: (arg) => arg != null,
 		message: "argument is null or not defined"
@@ -38,19 +38,19 @@ const checks = {
 }
 
 function validate(rules, value) {
-	if (!checks.defined.handler(rules)) throw checks.defined.message
+	if (!validators.defined.handler(rules)) throw validators.defined.message
 
 	let results = []
 
 	rules.split(",").forEach(item => {
 		if (item.indexOf(":") === -1) {
-			if (!checks[item].handler(value)) results.push(checks[item].message)
+			if (!validators[item].handler(value)) results.push(validators[item].message)
 		} else {
 			let elements = item.split(":")
-			let check = elements[0]
+			let key = elements[0]
 			let expression = elements[1]
 
-			if (!checks[check].handler(value, expression)) results.push(`${checks[check].message} ${expression}`)
+			if (!validators[key].handler(value, expression)) results.push(`${validators[key].message} ${expression}`)
 		}
 	})
 
