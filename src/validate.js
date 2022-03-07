@@ -42,7 +42,7 @@ function validate(rules, value) {
 
 	let results = []
 
-	rules.split(",").forEach(item => {
+	rules.split(";").forEach(item => {
 		if (item.indexOf(":") === -1) {
 			if (!validators[item].handler(value)) results.push(validators[item].message)
 		} else {

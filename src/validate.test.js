@@ -14,12 +14,12 @@ test("validate() throws corresponding errors", () => {
 
 test("validate() returns true on valid arguments", () => {
 	expect(validate("defined", 1)).toBe(true)
-	expect(validate("defined,number", 1)).toBe(true)
+	expect(validate("defined;number", 1)).toBe(true)
 	expect(validate("lt:2", 1)).toBe(true)
 	expect(validate("lte:2", 2)).toBe(true)
 	expect(validate("gt:1", 2)).toBe(true)
 	expect(validate("gte:1", 2)).toBe(true)
-	expect(validate("defined,string", "abc")).toBe(true)
+	expect(validate("defined;string", "abc")).toBe(true)
 	expect(validate("match:[a-b]", "a")).toBe(true)
 	expect(validate("notMatch:[a-z]+", "123")).toBe(true)
 })

@@ -400,7 +400,36 @@ const jumpData = {
 		"Omicron Gamma": { loc: "e5", gate: false, hidden: false },
 		"Omega 5": { loc: "cd5", gate: false, hidden: false },
 		"Omega 11": { loc: "d34", gate: false, hidden: false }
+	},
+	"New Tokyo": {
+		"Hokkaido": { loc: "d2", gate: true, hidden: false },
+		"Honshu": [
+			{ loc: "g4", gate: false, hidden: false },
+			{ loc: "b6", gate: true, hidden: false }
+		],
+		"Shikoku": { loc: "e7", gate: true, hidden: false },
+		"Kyushu": [
+			{ loc: "c6", gate: false, hidden: false },
+			{ loc: "g46", gate: true, hidden: false }
+		]
+	},
+	"Omicron Major": {
+		"Omicron Beta": { loc: "d4", gate: true, hidden: true }
+	},
+	"Omicron Minor": {
+		"Omicron Beta": { loc: "d4", gate: false, hidden: true }
+	},
+	"Unknown 1": {
+		"Omicron Alpha": { loc: "de6", gate: false, hidden: true }
+	},
+	"Unknown 2": {
+		"Omicron Gamma": { loc: "de6", gate: false, hidden: true }
+	},
+	"Alaska": {
+		"New York": { loc: "g6", gate: true, hidden: false }
 	}
 }
 
-export default jumpData
+module.exports = {
+	jumpData
+}
