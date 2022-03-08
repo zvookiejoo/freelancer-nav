@@ -9,26 +9,41 @@ function makePath(path) {
 			
 			return {
 				name: node,
-				to: jumpData[node][nextGate]
+				to: location(jumpData[node][nextGate])
 			}
 		} else if (i === path.length - 1) {
 			const prevGate = path[i-1]
 			return {
 				name: node,
-				from: jumpData[node][prevGate]
+				from: location(jumpData[node][prevGate])
 			}
 		} else {
 			const prevGate = path[i-1]
 			const nextGate = path[i+1]
 			return {
 				name: node,
-				from: jumpData[node][prevGate],
-				to: jumpData[node][nextGate]
+				from: location(jumpData[node][prevGate]),
+				to: location(jumpData[node][nextGate])
 			}
 		}
 	})
 
+	console.log(result)
+
 	return result
+}
+
+function location(gate) {
+	console.log(gate)
+	if (gate !== null) {
+		if (gate.__proto__ === Array.prototype) {
+			const result = gate.map(item => item.loc).join(" | ").toUpperCase()
+			console.log(result)
+			return result
+		} else {
+			return gate.loc.toUpperCase()
+		}
+	}
 }
 
 export default function Route({ path }) {
@@ -46,12 +61,12 @@ export default function Route({ path }) {
 									<h1 className="font-semibold mr-4">{node.name}</h1>
 									<div className="flex flex-row flex-nowrap text-sm">
 										{
-											node.from && node.from.loc && 
-											<div className="text-gray-600 mr-4">От: {node.from.loc.toUpperCase()}</div>
+											node.from && 
+											<div className="text-gray-600 mr-4">От: {node.from}</div>
 										}
 										{
-											node.to && node.to.loc &&
-											<div className="text-gray-600 mr-4">До: {node.to.loc.toUpperCase()}</div>
+											node.to && 
+											<div className="text-gray-600 mr-4">До: {node.to}</div>
 										}
 									</div>
 								</li>
