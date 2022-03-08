@@ -34,8 +34,8 @@ function makePath(path) {
 function location(gate) {
 	if (gate !== null) {
 		if (gate.__proto__ === Array.prototype) {
-			return gate.map(g => 
-				<span className={`mr-2 font-bold ${g.gate ? "text-blue-600" : "text-orange-600"}`}>{g.loc.toUpperCase()}</span>
+			return gate.map((g, i) => 
+				<span key={i} className={`mr-2 font-bold ${g.gate ? "text-blue-600" : "text-orange-600"}`}>{g.loc.toUpperCase()}</span>
 			)
 		} else {
 			return <span className={`mr-2 font-bold ${gate.gate ? "text-blue-600" : "text-orange-600"}`}>{gate.loc.toUpperCase()}</span>
