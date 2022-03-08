@@ -28,20 +28,17 @@ function makePath(path) {
 		}
 	})
 
-	console.log(result)
-
 	return result
 }
 
 function location(gate) {
-	console.log(gate)
 	if (gate !== null) {
 		if (gate.__proto__ === Array.prototype) {
-			const result = gate.map(item => item.loc).join(" | ").toUpperCase()
-			console.log(result)
-			return result
+			return gate.map(g => 
+				<span className={`mr-2 font-bold ${g.gate ? "text-blue-600" : "text-orange-600"}`}>{g.loc.toUpperCase()}</span>
+			)
 		} else {
-			return gate.loc.toUpperCase()
+			return <span className={`mr-2 font-bold ${gate.gate ? "text-blue-600" : "text-orange-600"}`}>{gate.loc.toUpperCase()}</span>
 		}
 	}
 }
@@ -59,14 +56,14 @@ export default function Route({ path }) {
 							return (
 								<li key={i} className="h-12">
 									<h1 className="font-semibold mr-4">{node.name}</h1>
-									<div className="flex flex-row flex-nowrap text-sm">
+									<div className="flex flex-row flex-nowrap text-sm border-b">
 										{
 											node.from && 
-											<div className="text-gray-600 mr-4">От: {node.from}</div>
+											<div className="w-1/2 text-gray-600 mr-4">От: {node.from}</div>
 										}
 										{
 											node.to && 
-											<div className="text-gray-600 mr-4">До: {node.to}</div>
+											<div className="w-1/2 text-gray-600 mr-4">До: {node.to}</div>
 										}
 									</div>
 								</li>

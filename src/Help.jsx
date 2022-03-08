@@ -11,7 +11,7 @@ function Help({ closeHandler, visible }) {
 						<h1 className="text-xl font-bold">Навигатор Фрилансера</h1>
 						<button onClick={closeHandler}><span className="font-bold text-xl text-gray-400">X</span></button>
 					</div>
-					<div className="mt-2 leading-5">
+					<div className="mt-2 leading-5 overflow-y-auto">
 					<p className="mt-2">
 						Это навигатор по карте звёздных систем игры Freelancer. Дело в том, что
 						&laquo;родной&raquo; навигатор не строит маршруты через прыжковые дыры, 
@@ -26,7 +26,7 @@ function Help({ closeHandler, visible }) {
 						находятся в&nbsp;
 						<a href="https://github.com/zvookiejoo/freelancer-nav" rel="noreferrer" target={"_blank"} className="text-blue-700 underline">этом репозитории</a>.
 					</p>
-					<h2 className="font-bold mt-2">Как пользоваться</h2>
+					<h2 className="font-semibold mt-2">Как пользоваться</h2>
 					<p className="mt-2">
 						На схеме можно подсмотреть названия систем. Введите названия системы отправления
 						и системы назначения в поля &laquo;Откуда&raquo; и &laquo;Куда&raquo; (работает 
@@ -39,6 +39,13 @@ function Help({ closeHandler, visible }) {
 						Найденный маршрут выведется под кнопками &laquo;Сброс&raquo; и &laquo;Поиск&raquo;. Если
 						появляется сообщение &laquo;Маршрут не найден&raquo;, значит &mdash; неверно указан начальный
 						или конечный пункт маршрута.
+					</p>
+					<h2 className="font-semibold mt-2">Обозначения</h2>
+					<p className="mt-2">
+						В маршруте есть обозначения в виде &laquo;AB12&raquo; и подобные. Это обозначает
+						квадрат в системе (на игровой карте), в котором находится прыжковая дыра. Если между двумя системами
+						есть оба варианта: необорудованная дыра и прыжковые ворота &mdash; выводятся обе координаты.
+						Координаты ворот обозначены голубым цветом, дыр &mdash; оранжевым.
 					</p>
 					</div>
 				</div>
