@@ -6,7 +6,7 @@ function makePath(path) {
 	const result = path.map((node, i) => {
 		if (i === 0 && path.length > 0) {
 			const nextGate = path[i+1]
-			console.log(nextGate)
+			
 			return {
 				name: node,
 				to: jumpData[node][nextGate]
@@ -28,12 +28,10 @@ function makePath(path) {
 		}
 	})
 
-	console.log(result)
 	return result
 }
 
 export default function Route({ path }) {
-	console.log(path)
 	return (
 		<>
 		{
