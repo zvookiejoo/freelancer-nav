@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { jumpData } from "./data";
 
 function makeNodeList(partialName) {
-	return Object.keys(jumpData).filter(key => key.toLowerCase().indexOf(partialName.toLowerCase()) !== -1)
+	return Object.keys(jumpData).filter(key => key.indexOf(partialName) !== -1)
 }
 
 function NodeSelector({ label, value, handler, placeholder }) {
@@ -43,9 +43,15 @@ function NodeSelector({ label, value, handler, placeholder }) {
 			{
 				state.suggestions && state.suggestions.length > 0 &&
 				<div className={`relative ${state.listVisible ? "block" : "hidden"}`}>
-					<ul className="absolute p-2 bg-gray-50 mt-1">
+					<ul className="absolute w-full p-2 shadow-lg bg-white border-gray-50 border mt-1">
 						{ state.suggestions.map((node, idx) => <li key={idx} className="px-2 h-8 leading-8 cursor-pointer border-gray-400 hover:bg-blue-100" onMouseDown={() => select(node)}>{node}</li>)}
 					</ul>
+				</div>
+			}
+			{
+				state.suggestions && state.suggestions.length === 0 &&
+				<div className={`relative ${state.listVisible ? "block" : "hidden"}`}>
+					<div className="absolute w-full p-2 shadow-lg text-red-600 bg-white border-gray-50 border mt-1">Совпадений не найдено.</div>
 				</div>
 			}
 		</div>

@@ -40,6 +40,9 @@ function localRange(a, b) {
 }
 
 function findPath(from, to) {
+	if (Object.keys(jumpData).indexOf(from) === -1 || Object.keys(jumpData).indexOf(to) === -1)
+		return ["Маршрут не найден."]
+
 	let queue = []
 	let visited = {}
 	let predecessor = {}
