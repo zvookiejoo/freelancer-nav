@@ -1,4 +1,4 @@
-export default function({ closeHandler, visible }) {
+function Help({ closeHandler, visible }) {
 	return (
 		<>
 		{
@@ -24,7 +24,7 @@ export default function({ closeHandler, visible }) {
 					<p className="mt-2">
 						Попутно, это демо-проект для моего портфолио. Исходный код и документация 
 						находятся в&nbsp;
-						<a href="https://github.com/zvookiejoo/freelancer-nav" target={"_blank"} className="text-blue-700 underline">этом репозитории</a>.
+						<a href="https://github.com/zvookiejoo/freelancer-nav" rel="noreferrer" target={"_blank"} className="text-blue-700 underline">этом репозитории</a>.
 					</p>
 					<h2 className="font-bold mt-2">Как пользоваться</h2>
 					<p className="mt-2">
@@ -47,3 +47,5 @@ export default function({ closeHandler, visible }) {
 		</>
 	)
 }
+
+export default Help

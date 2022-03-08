@@ -1,6 +1,8 @@
 import { jumpData } from "./data"
 
 function makePath(path) {
+	if (path.length === 1) return [{ name: path[0] }]
+
 	const result = path.map((node, i) => {
 		if (i === 0 && path.length > 0) {
 			const nextGate = path[i+1]
