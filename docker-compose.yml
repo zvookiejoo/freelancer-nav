@@ -1,0 +1,7 @@
+version: '2.1'
+
+services:
+  front:
+    build: .
+    ports:
+      - 80:80

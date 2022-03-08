@@ -1,6 +1,5 @@
 import { validate } from "./validate"
 import { jumpData } from "./data"
-import { findRenderedComponentWithType } from "react-dom/test-utils"
 
 function abscissa(val) {
 	const abscissaValues = "abcdefgh"
@@ -8,14 +7,14 @@ function abscissa(val) {
 
 	const onBorder = val.match(borderRule) != null
 
-	if (val.length > 2 || (val.length == 2 && !onBorder)) throw new Error("abscissa() received invalid value")
+	if (val.length > 2 || (val.length === 2 && !onBorder)) throw new Error("abscissa() received invalid value")
 
 	return (abscissaValues.indexOf(val) + 1) + (onBorder && 0.5)
 }
 
 function ordinate(val) {
 	if (validate("defined;string;match:[1-8]{1,2}", val)) {
-		if (val.length == 2) {
+		if (val.length === 2) {
 			const [ a, b ] = val.split("")
 			
 			return (parseInt(a) + parseInt(b)) / 2
@@ -30,8 +29,8 @@ function localRange(a, b) {
 	const validationRule = `defined;string;match:${splitMatch}`
 
 	if (validate(validationRule, a) && validate(validationRule, b)) {
-		let [ pointA, xA, yA ] = a.match(splitMatch)
-		let [ pointB, xB, yB ] = b.match(splitMatch)
+		let [ , xA, yA ] = a.match(splitMatch)
+		let [ , xB, yB ] = b.match(splitMatch)
 
 		let rangeX = Math.abs(abscissa(xA) - abscissa(xB))
 		let rangeY = Math.abs(ordinate(yA) - ordinate(yB))
@@ -56,10 +55,10 @@ function findPath(from, to) {
 				queue.push(neighbor)
 				visited[neighbor] = true
 
-				if (neighbor == to) {
+				if (neighbor === to) {
 					var path = [ neighbor ]
 
-					while (v != from) {
+					while (v !== from) {
 						path.push(v)
 						v = predecessor[v]
 					}
@@ -77,9 +76,4 @@ function findPath(from, to) {
 	return path
 }
 
-module.exports = {
-	abscissa,
-	ordinate,
-	localRange,
-	findPath
-}
+export { abscissa, ordinate, localRange, findPath }

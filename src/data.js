@@ -430,6 +430,4 @@ const jumpData = {
 	}
 }
 
-module.exports = {
-	jumpData
-}
+export { jumpData }

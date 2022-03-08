@@ -59,6 +59,4 @@ function validate(rules, value) {
 	return true
 }
 
-module.exports = {
-	validate
-}
+export { validate }
