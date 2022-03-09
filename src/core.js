@@ -1,82 +1,68 @@
-import { validate } from "./validate"
 import { jumpData } from "./data"
 
-function abscissa(val) {
-	const abscissaValues = "abcdefgh"
-	const borderRule = /ab|bc|cd|de|ef|fg|gh/
-
-	const onBorder = val.match(borderRule) != null
-
-	if (val.length > 2 || (val.length === 2 && !onBorder)) throw new Error("abscissa() received invalid value")
-
-	return (abscissaValues.indexOf(val) + 1) + (onBorder && 0.5)
-}
-
-function ordinate(val) {
-	if (validate("defined;string;match:[1-8]{1,2}", val)) {
-		if (val.length === 2) {
-			const [ a, b ] = val.split("")
-			
-			return (parseInt(a) + parseInt(b)) / 2
-		} else {
-			return parseInt(val)
-		}
-	}
-}
-
-function localRange(a, b) {
-	const splitMatch = "([a-h]{1,2})([1-8]{1,2})"
-	const validationRule = `defined;string;match:${splitMatch}`
-
-	if (validate(validationRule, a) && validate(validationRule, b)) {
-		let [ , xA, yA ] = a.match(splitMatch)
-		let [ , xB, yB ] = b.match(splitMatch)
-
-		let rangeX = Math.abs(abscissa(xA) - abscissa(xB))
-		let rangeY = Math.abs(ordinate(yA) - ordinate(yB))
-
-		return Math.sqrt((rangeX * rangeX) + (rangeY * rangeY))
-	}
-}
+/*
+ * Метод jumpPath(from, to) находит кратчайший маршрут между двумя системами,
+ * имена которых указаны в аргументах from и to.
+ * 
+ * Для вычисления использован метод поиска "в ширину": берётся начальный узел графа,
+ * просматриваются все его соседи на один уровень "в глубину", если среди них нет
+ * искомого (целевого) узла - просматриваются соседи соседей и так далее.
+ * 
+ * Практически, если маршрута между двумя системами не существует - алгоритм просмотрит
+ * все доступные узлы и вернёт undefined-значение. Однако, конкретный граф (карта систем)
+ * является ненаправленным, полным и связным, что значит - от любой его вершины есть
+ * путь в любую другую вершину. Поэтому в этой реализации нет обработки варианта с 
+ * несуществующим маршрутом.
+**/
 
 function findPath(from, to) {
+	// Проверка существования запрошенных вершин в графе.
 	if (Object.keys(jumpData).indexOf(from) === -1 || Object.keys(jumpData).indexOf(to) === -1)
 		return ["Маршрут не найден."]
 
-	let queue = []
-	let visited = {}
-	let predecessor = {}
+	let queue = [] // Очередь узлов для просмотра
+	let visited = {} // Перечень посещённых вершин (чтобы не зацикливаться вокруг одной вершины)
+	let predecessor = {} // Объект для хранения вершин-предшественников, для запоминания пути от вершины к вершине.
 
-	queue.push(from)
-	visited[from] = true
+	queue.push(from) // Поместим исходную вершину в очередь
+	visited[from] = true // Отметим её как посещённую
 
+	// Главный цикл алгоритма: пока в очереди присутствуют вершины - просматриваем их соседей
 	while (queue.length > 0) {
-		let v = queue.shift()
+		let v = queue.shift() // Вынимаем вершину из очереди
 
+		// Обходим её соседей
 		for (let neighbor of Object.keys(jumpData[v])) {
 			if (!visited[neighbor]) {
+				// Если соседняя вершина ещё не посещалась - помещаем её в очередь.
 				queue.push(neighbor)
+				// Отмечаем её как просмотренную
 				visited[neighbor] = true
 
+				// Если текущая вершина является конечной точкой пути
 				if (neighbor === to) {
+					// Создаём массив для возврата результата.
 					var path = [ neighbor ]
 
+					// Пока не вернёмся к исходной точке
 					while (v !== from) {
-						path.push(v)
-						v = predecessor[v]
+						path.push(v) // Добавляем в него текущую вершину
+						v = predecessor[v] // Замещаем её на предшествующую
 					}
 
+					// Добавляем начальную вершину (from) в конец массива с результатом
 					path.push(v)
 
+					// И возвращаем массив, развёрнутый наоборот, т.к. на предыдущих шагах он заполнялся
+					// вершинами пути в обратном порядке.
 					return path.reverse()
 				}
 
+				// Указываем для только что посещённой вершины её вершину-предшественника.
 				predecessor[neighbor] = v
 			}
 		}
 	}
-
-	return path
 }
 
-export { abscissa, ordinate, localRange, findPath }
+export { findPath }
